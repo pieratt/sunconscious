@@ -1,3 +1,4 @@
+import { IWisdom } from "@/lib/types";
 import { Text } from "@/ui/common/Typography";
 import Link from "next/link";
 
@@ -5,44 +6,24 @@ function Avatar() {
   return <div className="h-8 w-8 bg-stone-400 rounded-full"></div>;
 }
 
-interface IAttribution {
-  source: {
-    name: string;
-    url?: string;
-  };
-  authors: {
-    id: string;
-    name: string;
-  }[];
-}
+interface Props extends IWisdom {}
 
-interface Props {
-  excerpt: string;
-  attribution: IAttribution;
-  addedBy: {
-    id: string;
-    username: string;
-    avatarUrl?: string;
-  };
-  addedDate: Date;
-}
-
-function Source(props: IAttribution["source"]) {
+function Source(props: IWisdom["attribution"]["source"]) {
   if (!props.url) {
     return (
       <Text className="text-neon hover:text-neon uppercase">{props.name}</Text>
     );
   }
   return (
-    <Link href={props.url}>
+    <Link href={props.url} target="_blank">
       <Text className="text-neon hover:text-neon uppercase">{props.name}</Text>
     </Link>
   );
 }
 
-function Attribution(props: IAttribution) {
+function Attribution(props: IWisdom["attribution"]) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-start">
       <Source {...props.source} />
       <Text className="text-neon hover:text-neon uppercase">
         {props.authors.map((author) => author.name).join(", ")}
@@ -65,7 +46,7 @@ function AddedBy(props: Pick<Props, "addedBy" | "addedDate">) {
   );
 }
 
-export default function Wisdom(props: Props) {
+export default function WisdomItem(props: Props) {
   return (
     <div className="flex flex-col gap-4">
       <div className="border border-stone-200 rounded p-6 gap-2 flex flex-col">
