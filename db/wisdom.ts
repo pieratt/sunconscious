@@ -1,4 +1,4 @@
-import { Area, IWisdom, WisdomType } from "@/lib/types";
+import { Area, Era, IWisdom, WisdomType } from "@/lib/types";
 
 const wisdom: IWisdom[] = [
   {
@@ -25,6 +25,7 @@ const wisdom: IWisdom[] = [
     addedDate: new Date(),
     areas: [Area.Mystery],
     type: WisdomType.Theory,
+    era: Era.Scientific,
   },
   {
     id: "2",
@@ -50,6 +51,7 @@ const wisdom: IWisdom[] = [
     addedDate: new Date(),
     areas: [Area.Creativity],
     type: WisdomType.Theory,
+    era: Era.Scientific,
   },
   {
     id: "3",
@@ -75,6 +77,7 @@ const wisdom: IWisdom[] = [
     addedDate: new Date(),
     areas: [Area.Network],
     type: WisdomType.Practice,
+    era: Era.Prehistoric,
   },
   {
     id: "4",
@@ -100,6 +103,7 @@ const wisdom: IWisdom[] = [
     addedDate: new Date(),
     areas: [Area.Wealth],
     type: WisdomType.Practice,
+    era: Era.Classical,
   },
   {
     id: "5",
@@ -125,6 +129,7 @@ const wisdom: IWisdom[] = [
     addedDate: new Date(),
     areas: [Area.Philosophy],
     type: WisdomType.Practice,
+    era: Era.Current,
   },
 ];
 

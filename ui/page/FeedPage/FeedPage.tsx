@@ -8,13 +8,24 @@ import { FeedFilters } from "@/ui/bespoke/FeedFilters";
 import wisdom from "@/db/wisdom";
 
 function useFilteredWisdom() {
-  const { activeAreas } = useFeedContext();
+  const { activeAreas, activeEras, activeTypes } = useFeedContext();
 
-  if (activeAreas.length === 0) {
+  if (
+    activeTypes.length === 0 &&
+    activeEras.length === 0 &&
+    activeAreas.length === 0
+  ) {
     return wisdom;
   }
+
   return wisdom.filter((w) => {
-    return w.areas.some((area) => activeAreas.includes(area));
+    const { areas, era, type } = w;
+    return (
+      (activeAreas.length === 0 ||
+        areas.some((a) => activeAreas.includes(a))) &&
+      (activeEras.length === 0 || activeEras.includes(era)) &&
+      (activeTypes.length === 0 || activeTypes.includes(type))
+    );
   });
 }
 
@@ -22,9 +33,9 @@ export default function FeedPage() {
   const { dispatch, isSidebarOpen } = useFeedContext();
   const filteredWisdom = useFilteredWisdom();
   return (
-    <div className="relative flex w-full p-8">
+    <div className="relative flex w-full p-8 ">
       <div className="w-full md:mr-80">
-        <Text className="uppercase">38 Results</Text>
+        <Text className="uppercase">{filteredWisdom.length} Results</Text>
         <div className="flex flex-col gap-4">
           {filteredWisdom.map((w) => (
             <WisdomItem {...w} key={w.id} />
@@ -35,7 +46,7 @@ export default function FeedPage() {
         isOpen={isSidebarOpen}
         onClose={() => dispatch({ type: "setSidebar", isOpen: false })}
       >
-        <Link href="/">
+        <Link className="py-4" href="/">
           <Text className="uppercase text-neon hover:text-neon-hover">
             Sunconscious
           </Text>

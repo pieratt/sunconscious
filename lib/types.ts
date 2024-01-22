@@ -57,4 +57,5 @@ export interface IWisdom {
   addedDate: Date;
   areas: Area[];
   type: WisdomType;
+  era: Era;
 }

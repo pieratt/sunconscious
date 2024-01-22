@@ -3,26 +3,29 @@
 import { useReducer, Dispatch } from "react";
 
 import { UnreachableCaseError } from "@/lib/errors";
-import { Area, WisdomType } from "@/lib/types";
+import { Area, Era, WisdomType } from "@/lib/types";
 
 export interface State {
   isSidebarOpen: boolean;
   activeAreas: Area[];
-  activeWisdomType: WisdomType;
+  activeEras: Era[];
+  activeTypes: WisdomType[];
 }
 
 export function getInitialState(): State {
   return {
     isSidebarOpen: false,
     activeAreas: [],
-    activeWisdomType: WisdomType.Theory,
+    activeEras: [],
+    activeTypes: [],
   };
 }
 
 export type Action =
   | { type: "setSidebar"; isOpen: boolean }
   | { type: "toggleActiveArea"; area: Area }
-  | { type: "setActiveWisdomType"; wisdomType: WisdomType };
+  | { type: "toggleActiveEra"; era: Era }
+  | { type: "toggleActiveType"; wisdomType: WisdomType };
 
 function reduce(state: State, action: Action): State {
   switch (action.type) {
@@ -43,10 +46,26 @@ function reduce(state: State, action: Action): State {
         activeAreas: updatedAreas,
       };
 
-    case "setActiveWisdomType":
+    case "toggleActiveEra":
+      const isEraActive = state.activeEras.includes(action.era);
+      const updatedEras = isEraActive
+        ? state.activeEras.filter((a) => a !== action.era)
+        : [...state.activeEras, action.era];
+
       return {
         ...state,
-        activeWisdomType: action.wisdomType,
+        activeEras: updatedEras,
+      };
+
+    case "toggleActiveType":
+      const isTypeActive = state.activeTypes.includes(action.wisdomType);
+      const updatedTypes = isTypeActive
+        ? state.activeTypes.filter((a) => a !== action.wisdomType)
+        : [...state.activeTypes, action.wisdomType];
+
+      return {
+        ...state,
+        activeTypes: updatedTypes,
       };
 
     default:
