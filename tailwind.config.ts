@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -15,6 +16,17 @@ const config: Config = {
       },
       animation: {
         sun: "12s linear infinite spin",
+      },
+      colors: {
+        neon: {
+          DEFAULT: "#bfd68f",
+          hover: "#8aa652",
+        },
+      },
+      fontFamily: {
+        sans: ["Arial", "sans-serif"],
+        serif: ["Times New Roman", "serif"],
+        mono: ["var(--font-inconsolata)"],
       },
     },
   },
