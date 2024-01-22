@@ -1,11 +1,11 @@
 import { Era } from "./types";
 
-export const eras = [
-  Era.Current,
-  Era.Scientific,
-  Era.Medieval,
-  Era.Classical,
-  Era.Prehistoric,
+export const eras: Era[] = [
+  "CURRENT",
+  "SCIENTIFIC",
+  "MEDIEVAL",
+  "CLASSICAL",
+  "PREHISTORIC",
 ];
 
 interface Attrs {
@@ -13,19 +13,9 @@ interface Attrs {
 }
 
 export const EraToAttrs: Record<Era, Attrs> = {
-  [Era.Current]: {
-    name: "Current",
-  },
-  [Era.Scientific]: {
-    name: "Scientific",
-  },
-  [Era.Medieval]: {
-    name: "Medieval",
-  },
-  [Era.Classical]: {
-    name: "Classical",
-  },
-  [Era.Prehistoric]: {
-    name: "Prehistoric",
-  },
+  CURRENT: { name: "Current" },
+  SCIENTIFIC: { name: "Scientific" },
+  MEDIEVAL: { name: "Medieval" },
+  CLASSICAL: { name: "Classical" },
+  PREHISTORIC: { name: "Prehistoric" },
 };

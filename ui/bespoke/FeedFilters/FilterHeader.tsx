@@ -6,7 +6,7 @@ interface Props {
 
 export default function FilterHeader({ children }: Props) {
   return (
-    <div>
+    <div className="pb-1">
       <Text className="text-white" variant="sans">
         {children}
       </Text>

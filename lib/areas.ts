@@ -1,18 +1,18 @@
 import { Area } from "./types";
 
-export const areas = [
-  Area.Mystery,
-  Area.Self,
-  Area.Wealth,
-  Area.Communication,
-  Area.Home,
-  Area.Creativity,
-  Area.Health,
-  Area.Partners,
-  Area.Loss,
-  Area.Philosophy,
-  Area.Purpose,
-  Area.Network,
+export const areas: Area[] = [
+  "MYSTERY",
+  "SELF",
+  "WEALTH",
+  "COMMUNICATION",
+  "HOME",
+  "CREATIVITY",
+  "HEALTH",
+  "PARTNERS",
+  "LOSS",
+  "PHILOSOPHY",
+  "PURPOSE",
+  "NETWORK",
 ];
 
 interface Attrs {
@@ -21,51 +21,51 @@ interface Attrs {
 }
 
 export const AreaToAttrs: Record<Area, Attrs> = {
-  [Area.Mystery]: {
+  MYSTERY: {
     name: "Mystery",
     color: "text-emerald-400",
   },
-  [Area.Self]: {
+  SELF: {
     name: "Self",
     color: "text-emerald-600",
   },
-  [Area.Wealth]: {
+  WEALTH: {
     name: "Wealth",
     color: "text-emerald-800",
   },
-  [Area.Communication]: {
+  COMMUNICATION: {
     name: "Communication",
     color: "text-purple-400",
   },
-  [Area.Home]: {
+  HOME: {
     name: "Home",
     color: "text-purple-600",
   },
-  [Area.Creativity]: {
+  CREATIVITY: {
     name: "Creativity",
     color: "text-purple-800",
   },
-  [Area.Health]: {
+  HEALTH: {
     name: "Health",
     color: "text-sky-400",
   },
-  [Area.Partners]: {
+  PARTNERS: {
     name: "Partners",
     color: "text-sky-600",
   },
-  [Area.Loss]: {
+  LOSS: {
     name: "Loss",
     color: "text-sky-800",
   },
-  [Area.Philosophy]: {
+  PHILOSOPHY: {
     name: "Philosophy",
     color: "text-pink-400",
   },
-  [Area.Purpose]: {
+  PURPOSE: {
     name: "Purpose",
     color: "text-pink-600",
   },
-  [Area.Network]: {
+  NETWORK: {
     name: "Network",
     color: "text-pink-800",
   },

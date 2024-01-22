@@ -1,30 +1,25 @@
-export enum Area {
-  Mystery = "MYSTERY",
-  Self = "SELF",
-  Wealth = "WEALTH",
-  Communication = "COMMUNICATION",
-  Home = "HOME",
-  Creativity = "CREATIVITY",
-  Health = "HEALTH",
-  Partners = "PARTNERS",
-  Loss = "LOSS",
-  Philosophy = "PHILOSOPHY",
-  Purpose = "PURPOSE",
-  Network = "NETWORK",
-}
+export type Area =
+  | "MYSTERY"
+  | "SELF"
+  | "WEALTH"
+  | "COMMUNICATION"
+  | "HOME"
+  | "CREATIVITY"
+  | "HEALTH"
+  | "PARTNERS"
+  | "LOSS"
+  | "PHILOSOPHY"
+  | "PURPOSE"
+  | "NETWORK";
 
-export enum WisdomType {
-  Theory = "THEORY",
-  Practice = "PRACTICE",
-}
+export type WisdomType = "THEORY" | "PRACTICE";
 
-export enum Era {
-  Current = "CURRENT",
-  Scientific = "SCIENTIFIC",
-  Medieval = "MEDIEVAL",
-  Classical = "CLASSICAL",
-  Prehistoric = "PREHISTORIC",
-}
+export type Era =
+  | "CURRENT"
+  | "SCIENTIFIC"
+  | "MEDIEVAL"
+  | "CLASSICAL"
+  | "PREHISTORIC";
 
 export interface IAuthor {
   id: string;
@@ -54,7 +49,7 @@ export interface IWisdom {
   excerpt: string;
   attribution: IAttribution;
   addedBy: IUser;
-  addedDate: Date;
+  addedAt: string;
   areas: Area[];
   type: WisdomType;
   era: Era;

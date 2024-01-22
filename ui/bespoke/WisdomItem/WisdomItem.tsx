@@ -1,3 +1,4 @@
+import { AreaToAttrs } from "@/lib/areas";
 import { IWisdom } from "@/lib/types";
 import { Text } from "@/ui/common/Typography";
 import Link from "next/link";
@@ -32,7 +33,7 @@ function Attribution(props: IWisdom["attribution"]) {
   );
 }
 
-function AddedBy(props: Pick<Props, "addedBy" | "addedDate">) {
+function AddedBy(props: Pick<Props, "addedBy" | "addedAt">) {
   return (
     <div className="flex gap-4 items-center">
       <Avatar />
@@ -40,7 +41,7 @@ function AddedBy(props: Pick<Props, "addedBy" | "addedDate">) {
         <Text className="text-stone-400">{props.addedBy.username}</Text>
       </Link>
       <Text className="text-stone-400">
-        {props.addedDate.toLocaleDateString()}
+        {new Date(props.addedAt).toLocaleDateString()}
       </Text>
     </div>
   );
@@ -53,7 +54,12 @@ export default function WisdomItem(props: Props) {
         <Text variant="serif" className="text-stone-50 text-xl">
           {props.excerpt}
         </Text>
-        <Attribution {...props.attribution} />
+        <div>
+          <Attribution {...props.attribution} />
+          <Text className="text-neon hover:text-neon uppercase">
+            {props.areas.map((area) => AreaToAttrs[area].name).join(", ")}
+          </Text>
+        </div>
       </div>
       <AddedBy {...props} />
     </div>

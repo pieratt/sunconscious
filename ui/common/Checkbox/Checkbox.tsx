@@ -17,7 +17,7 @@ export default function Checkbox({
   ...props
 }: Props) {
   return (
-    <div className="relative flex">
+    <div className="relative flex items-center">
       <div className="flex h-5 items-center">
         <input
           id={id}

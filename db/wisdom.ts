@@ -1,4 +1,4 @@
-import { Area, Era, IWisdom, WisdomType } from "@/lib/types";
+import { IWisdom } from "@/lib/types";
 
 const wisdom: IWisdom[] = [
   {
@@ -14,7 +14,11 @@ const wisdom: IWisdom[] = [
       authors: [
         {
           id: "1",
-          name: "Lewis Hyde",
+          name: "Sara Walker",
+        },
+        {
+          id: "2",
+          name: "Adam Frank",
         },
       ],
     },
@@ -22,10 +26,10 @@ const wisdom: IWisdom[] = [
       id: "1",
       username: "username",
     },
-    addedDate: new Date(),
-    areas: [Area.Mystery],
-    type: WisdomType.Theory,
-    era: Era.Scientific,
+    addedAt: "2024-01-22",
+    areas: ["MYSTERY", "SELF", "HEALTH"],
+    type: "THEORY",
+    era: "SCIENTIFIC",
   },
   {
     id: "2",
@@ -40,7 +44,11 @@ const wisdom: IWisdom[] = [
       authors: [
         {
           id: "1",
-          name: "Lewis Hyde",
+          name: "Sara Walker",
+        },
+        {
+          id: "2",
+          name: "Adam Frank",
         },
       ],
     },
@@ -48,10 +56,10 @@ const wisdom: IWisdom[] = [
       id: "1",
       username: "username",
     },
-    addedDate: new Date(),
-    areas: [Area.Creativity],
-    type: WisdomType.Theory,
-    era: Era.Scientific,
+    addedAt: "2024-01-22",
+    areas: ["CREATIVITY", "MYSTERY"],
+    type: "THEORY",
+    era: "SCIENTIFIC",
   },
   {
     id: "3",
@@ -66,7 +74,11 @@ const wisdom: IWisdom[] = [
       authors: [
         {
           id: "1",
-          name: "Lewis Hyde",
+          name: "Sara Walker",
+        },
+        {
+          id: "2",
+          name: "Adam Frank",
         },
       ],
     },
@@ -74,10 +86,10 @@ const wisdom: IWisdom[] = [
       id: "1",
       username: "username",
     },
-    addedDate: new Date(),
-    areas: [Area.Network],
-    type: WisdomType.Practice,
-    era: Era.Prehistoric,
+    addedAt: "2024-01-22",
+    areas: ["NETWORK"],
+    type: "PRACTICE",
+    era: "PREHISTORIC",
   },
   {
     id: "4",
@@ -92,7 +104,11 @@ const wisdom: IWisdom[] = [
       authors: [
         {
           id: "1",
-          name: "Lewis Hyde",
+          name: "Sara Walker",
+        },
+        {
+          id: "2",
+          name: "Adam Frank",
         },
       ],
     },
@@ -100,10 +116,10 @@ const wisdom: IWisdom[] = [
       id: "1",
       username: "username",
     },
-    addedDate: new Date(),
-    areas: [Area.Wealth],
-    type: WisdomType.Practice,
-    era: Era.Classical,
+    addedAt: "2024-01-22",
+    areas: ["WEALTH"],
+    type: "PRACTICE",
+    era: "CLASSICAL",
   },
   {
     id: "5",
@@ -118,7 +134,11 @@ const wisdom: IWisdom[] = [
       authors: [
         {
           id: "1",
-          name: "Lewis Hyde",
+          name: "Sara Walker",
+        },
+        {
+          id: "2",
+          name: "Adam Frank",
         },
       ],
     },
@@ -126,10 +146,10 @@ const wisdom: IWisdom[] = [
       id: "1",
       username: "username",
     },
-    addedDate: new Date(),
-    areas: [Area.Philosophy],
-    type: WisdomType.Practice,
-    era: Era.Current,
+    addedAt: "2024-01-22",
+    areas: ["PHILOSOPHY"],
+    type: "PRACTICE",
+    era: "CURRENT",
   },
 ];
 
