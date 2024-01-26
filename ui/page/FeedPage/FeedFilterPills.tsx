@@ -7,8 +7,17 @@ export default function FeedFilterPills() {
     era: activeEras = [],
     wisdomType: activeWisdomTypes = [],
   } = useFeedFilters();
+
+  if (
+    activeAreas.length === 0 &&
+    activeEras.length === 0 &&
+    activeWisdomTypes.length === 0
+  ) {
+    return null;
+  }
+
   return (
-    <div className="flex gap-4 -mx-1 pb-2 flex-wrap">
+    <div className="flex gap-4 pb-2 flex-wrap">
       {activeAreas.map((area) => (
         <FeedFilterPill
           key={`area-filter-pill-${area}`}

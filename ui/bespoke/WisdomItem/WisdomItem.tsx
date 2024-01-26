@@ -2,6 +2,7 @@ import { AreaToAttrs } from "@/lib/areas";
 import { useFeedFilters } from "@/lib/feed";
 import { IWisdom } from "@/lib/types";
 import { Text } from "@/ui/common/Typography";
+import classNames from "classnames";
 import Link from "next/link";
 
 function Avatar() {
@@ -62,25 +63,30 @@ export default function WisdomItem(props: Props) {
         </Text>
         <div>
           <Attribution {...props.attribution} />
-          {props.areas.map((area, idx) => (
-            <span key={`wisdom-item${area}`}>
-              <button
-                onClick={() => {
-                  const updatedFilters = activeAreas.includes(area)
-                    ? activeAreas.filter((a) => a !== area)
-                    : [...activeAreas, area];
-                  setFilter({ param: "area", value: updatedFilters });
-                }}
-              >
-                <Text className="text-neon hover:text-neon-hover uppercase">
-                  {AreaToAttrs[area].name}
+          {props.areas.map((area, idx) => {
+            const { color } = AreaToAttrs[area];
+            return (
+              <span key={`wisdom-item${area}`}>
+                <button
+                  onClick={() => {
+                    if (!activeAreas.includes(area)) {
+                      setFilter({
+                        param: "area",
+                        value: [...activeAreas, area],
+                      });
+                    }
+                  }}
+                >
+                  <Text className={classNames(color, "uppercase")}>
+                    {AreaToAttrs[area].name}
+                  </Text>
+                </button>
+                <Text className="text-neon">
+                  {idx === props.areas.length - 1 ? "" : ", "}
                 </Text>
-              </button>
-              <Text className="text-neon">
-                {idx === props.areas.length - 1 ? "" : ", "}
-              </Text>
-            </span>
-          ))}
+              </span>
+            );
+          })}
         </div>
       </div>
       <AddedBy {...props} />

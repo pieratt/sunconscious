@@ -1,6 +1,6 @@
 import { AreaToAttrs } from "@/lib/areas";
 import { EraToAttrs } from "@/lib/eras";
-import { ParamsState } from "@/lib/feed";
+import { ParamsState, useFeedFilters } from "@/lib/feed";
 import { WisdomTypeToAttrs } from "@/lib/wisdomTypes";
 import { Text } from "@/ui/common/Typography";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -35,13 +35,17 @@ export function getFilterAttrs<T extends FilterType>(
 }
 
 export default function FeedFilterPill<T extends FilterType>(props: Props<T>) {
+  const { removeFilter } = useFeedFilters();
   const { type, value } = props;
   const { name, color } = getFilterAttrs<T>(type, value);
 
   return (
-    <div className="flex flex-nowrap gap-0.5 items-center">
+    <button
+      className="flex flex-nowrap gap-0.5 items-center"
+      onClick={() => removeFilter(type, value)}
+    >
       <Text className={classNames(color, "uppercase")}>{name}</Text>
       <XMarkIcon className="w-4 h-4 text-stone-500" />
-    </div>
+    </button>
   );
 }

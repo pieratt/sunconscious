@@ -37,13 +37,13 @@ export default function RightSidebar({
             >
               <Dialog.Panel
                 className={classNames(
-                  "fixed right-0 top-0 bottom-0 flex flex-1 flex-col bg-white pb-4 shadow-xl",
-                  "w-80"
+                  "fixed right-0 top-0 bottom-0 flex flex-1 flex-col bg-stone-800 pb-4 shadow-xl",
+                  "w-40"
                 )}
               >
                 <button
                   type="button"
-                  className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-400"
+                  className="absolute top-[26px] right-2 flex h-5 w-5 items-center justify-center rounded-full focus:outline-none"
                   onClick={onClose}
                 >
                   <span className="sr-only">Close sidebar</span>
@@ -68,7 +68,7 @@ export default function RightSidebar({
       <div
         className={classNames(
           "right-0 hidden md:fixed md:inset-y-0 md:flex md:flex-col",
-          "md:w-80"
+          "md:w-96"
         )}
       >
         <div className="flex flex-grow flex-col overflow-y-auto">
