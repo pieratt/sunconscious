@@ -5,14 +5,16 @@ import useFeedContext from "@/context/FeedContext";
 import { WisdomItem } from "@/ui/bespoke/WisdomItem";
 import Link from "next/link";
 import { FeedFilters } from "@/ui/bespoke/FeedFilters";
-import { useFeedFilters, useFilteredWisdom } from "@/lib/feed";
+import { useFilteredWisdom } from "@/lib/feed";
+import FeedFilterPills from "./FeedFilterPills";
 
 export default function FeedPage() {
   const { dispatch, isSidebarOpen } = useFeedContext();
   const filteredWisdom = useFilteredWisdom();
   return (
-    <div className="relative flex w-full p-8 ">
+    <div className="relative flex w-full p-6 ">
       <div className="w-full md:mr-80">
+        <FeedFilterPills />
         <div className="pb-4">
           <Text className="uppercase">{filteredWisdom.length} Results</Text>
         </div>

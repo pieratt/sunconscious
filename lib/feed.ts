@@ -30,7 +30,7 @@ export function useFilteredWisdom() {
 
 type FeedFilterParam = "wisdomType" | "era" | "area";
 
-type ParamsState = {
+export type ParamsState = {
   wisdomType?: WisdomType[];
   era?: Era[];
   area?: Area[];

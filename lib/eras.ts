@@ -10,12 +10,13 @@ export const eras: Era[] = [
 
 interface Attrs {
   name: string;
+  color: string;
 }
 
 export const EraToAttrs: Record<Era, Attrs> = {
-  CURRENT: { name: "Current" },
-  SCIENTIFIC: { name: "Scientific" },
-  MEDIEVAL: { name: "Medieval" },
-  CLASSICAL: { name: "Classical" },
-  PREHISTORIC: { name: "Prehistoric" },
+  CURRENT: { name: "Current", color: "text-white" },
+  SCIENTIFIC: { name: "Scientific", color: "text-white" },
+  MEDIEVAL: { name: "Medieval", color: "text-white" },
+  CLASSICAL: { name: "Classical", color: "text-white" },
+  PREHISTORIC: { name: "Prehistoric", color: "text-white" },
 };
