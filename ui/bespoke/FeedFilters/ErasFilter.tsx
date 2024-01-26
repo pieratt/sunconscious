@@ -3,25 +3,30 @@
 import { EraToAttrs, eras } from "@/lib/eras";
 import FilterHeader from "./FilterHeader";
 import classNames from "classnames";
-import useFeedContext from "@/context/FeedContext";
 import { Checkbox } from "@/ui/common/Checkbox";
+import { useFeedFilters } from "@/lib/feed";
 
 export default function ErasFilter() {
-  const { activeEras, dispatch } = useFeedContext();
+  const { era: activeEras = [], setFilter } = useFeedFilters();
   return (
     <div>
       <FilterHeader>Eras</FilterHeader>
       <div>
-        {eras.map((e) => {
-          const { name } = EraToAttrs[e];
+        {eras.map((era) => {
+          const { name } = EraToAttrs[era];
           return (
             <Checkbox
-              key={e}
-              id={`era-${e}`}
+              key={era}
+              id={`era-${era}`}
               className={classNames("text-white", "uppercase")}
               label={name}
-              checked={activeEras.includes(e)}
-              onChange={() => dispatch({ type: "toggleActiveEra", era: e })}
+              checked={activeEras.includes(era)}
+              onChange={() => {
+                const updatedFilters = activeEras.includes(era)
+                  ? activeEras.filter((a) => a !== era)
+                  : [...activeEras, era];
+                setFilter({ param: "era", value: updatedFilters });
+              }}
             />
           );
         })}

@@ -5,7 +5,7 @@ import useFeedContext from "@/context/FeedContext";
 import { WisdomItem } from "@/ui/bespoke/WisdomItem";
 import Link from "next/link";
 import { FeedFilters } from "@/ui/bespoke/FeedFilters";
-import { useFilteredWisdom } from "@/lib/feed";
+import { useFeedFilters, useFilteredWisdom } from "@/lib/feed";
 
 export default function FeedPage() {
   const { dispatch, isSidebarOpen } = useFeedContext();

@@ -3,25 +3,31 @@
 import { AreaToAttrs, areas } from "@/lib/areas";
 import FilterHeader from "./FilterHeader";
 import classNames from "classnames";
-import useFeedContext from "@/context/FeedContext";
 import { Checkbox } from "@/ui/common/Checkbox";
+import { useFeedFilters } from "@/lib/feed";
 
 export default function AreasFilter() {
-  const { activeAreas, dispatch } = useFeedContext();
+  const { area: activeAreas = [], setFilter } = useFeedFilters();
+
   return (
     <div>
       <FilterHeader>Areas</FilterHeader>
       <div>
-        {areas.map((a) => {
-          const { color, name } = AreaToAttrs[a];
+        {areas.map((area) => {
+          const { color, name } = AreaToAttrs[area];
           return (
             <Checkbox
-              key={a}
-              id={`area-${a}`}
+              key={area}
+              id={`area-${area}`}
               className={classNames(color, "uppercase")}
               label={name}
-              checked={activeAreas.includes(a)}
-              onChange={() => dispatch({ type: "toggleActiveArea", area: a })}
+              checked={activeAreas.includes(area)}
+              onChange={() => {
+                const updatedFilters = activeAreas.includes(area)
+                  ? activeAreas.filter((a) => a !== area)
+                  : [...activeAreas, area];
+                setFilter({ param: "area", value: updatedFilters });
+              }}
             />
           );
         })}
