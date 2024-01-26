@@ -7,8 +7,9 @@ import Link from "next/link";
 import { FeedFilters } from "@/ui/bespoke/FeedFilters";
 import { useFilteredWisdom } from "@/lib/feed";
 import FeedFilterPills from "./FeedFilterPills";
+import { Suspense } from "react";
 
-export default function FeedPage() {
+function FeedPageBody() {
   const { dispatch, isSidebarOpen } = useFeedContext();
   const filteredWisdom = useFilteredWisdom();
   return (
@@ -36,5 +37,13 @@ export default function FeedPage() {
         <FeedFilters />
       </RightSidebar>
     </div>
+  );
+}
+
+export default function FeedPage() {
+  return (
+    <Suspense>
+      <FeedPageBody />
+    </Suspense>
   );
 }
