@@ -10,13 +10,21 @@ export default function FeedFilterPills() {
   return (
     <div className="flex gap-4 -mx-1 pb-2 flex-wrap">
       {activeAreas.map((area) => (
-        <FeedFilterPill type="area" value={area} />
+        <FeedFilterPill
+          key={`area-filter-pill-${area}`}
+          type="area"
+          value={area}
+        />
       ))}
       {activeEras.map((era) => (
-        <FeedFilterPill type="era" value={era} />
+        <FeedFilterPill key={`era-filter-pill-${era}`} type="era" value={era} />
       ))}
       {activeWisdomTypes.map((wisdomType) => (
-        <FeedFilterPill type="wisdomType" value={wisdomType} />
+        <FeedFilterPill
+          key={`wisdomType-filter-pill-${wisdomType}`}
+          type="wisdomType"
+          value={wisdomType}
+        />
       ))}
     </div>
   );

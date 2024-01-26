@@ -1,4 +1,5 @@
 import { AreaToAttrs } from "@/lib/areas";
+import { useFeedFilters } from "@/lib/feed";
 import { IWisdom } from "@/lib/types";
 import { Text } from "@/ui/common/Typography";
 import Link from "next/link";
@@ -17,7 +18,9 @@ function Source(props: IWisdom["attribution"]["source"]) {
   }
   return (
     <Link href={props.url} target="_blank">
-      <Text className="text-neon hover:text-neon uppercase">{props.name}</Text>
+      <Text className="text-neon hover:text-neon-hover uppercase">
+        {props.name}
+      </Text>
     </Link>
   );
 }
@@ -38,7 +41,9 @@ function AddedBy(props: Pick<Props, "addedBy" | "addedAt">) {
     <div className="flex gap-4 items-center">
       <Avatar />
       <Link href={`/${props.addedBy.username}`}>
-        <Text className="text-stone-400">{props.addedBy.username}</Text>
+        <Text className="text-stone-400 hover:text-stone-500">
+          {props.addedBy.username}
+        </Text>
       </Link>
       <Text className="text-stone-400">
         {new Date(props.addedAt).toLocaleDateString()}
@@ -48,6 +53,7 @@ function AddedBy(props: Pick<Props, "addedBy" | "addedAt">) {
 }
 
 export default function WisdomItem(props: Props) {
+  const { setFilter, area: activeAreas = [] } = useFeedFilters();
   return (
     <div className="flex flex-col gap-4">
       <div className="border border-stone-200 rounded p-6 gap-2 flex flex-col">
@@ -56,9 +62,25 @@ export default function WisdomItem(props: Props) {
         </Text>
         <div>
           <Attribution {...props.attribution} />
-          <Text className="text-neon hover:text-neon uppercase">
-            {props.areas.map((area) => AreaToAttrs[area].name).join(", ")}
-          </Text>
+          {props.areas.map((area, idx) => (
+            <span key={`wisdom-item${area}`}>
+              <button
+                onClick={() => {
+                  const updatedFilters = activeAreas.includes(area)
+                    ? activeAreas.filter((a) => a !== area)
+                    : [...activeAreas, area];
+                  setFilter({ param: "area", value: updatedFilters });
+                }}
+              >
+                <Text className="text-neon hover:text-neon-hover uppercase">
+                  {AreaToAttrs[area].name}
+                </Text>
+              </button>
+              <Text className="text-neon">
+                {idx === props.areas.length - 1 ? "" : ", "}
+              </Text>
+            </span>
+          ))}
         </div>
       </div>
       <AddedBy {...props} />

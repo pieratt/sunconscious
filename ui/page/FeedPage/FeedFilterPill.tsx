@@ -39,7 +39,7 @@ export default function FeedFilterPill<T extends FilterType>(props: Props<T>) {
   const { name, color } = getFilterAttrs<T>(type, value);
 
   return (
-    <div className="flex flex-nowrap gap-1 items-center">
+    <div className="flex flex-nowrap gap-0.5 items-center">
       <Text className={classNames(color, "uppercase")}>{name}</Text>
       <XMarkIcon className="w-4 h-4 text-stone-500" />
     </div>
