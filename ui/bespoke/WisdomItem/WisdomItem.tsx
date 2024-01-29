@@ -87,6 +87,18 @@ export default function WisdomItem(props: Props) {
               </span>
             );
           })}
+          <div>
+            {props.tags.map((tag, idx) => (
+              <span key={`wisdom-item${tag}`}>
+                <button>
+                  <Text className="text-neon uppercase">{tag}</Text>
+                </button>
+                <Text className="text-neon">
+                  {idx === props.tags.length - 1 ? "" : ", "}
+                </Text>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
       <AddedBy {...props} />

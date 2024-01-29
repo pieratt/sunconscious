@@ -30,6 +30,7 @@ const wisdom: IWisdom[] = [
     areas: ["MYSTERY", "SELF", "HEALTH"],
     type: "THEORY",
     era: "SCIENTIFIC",
+    tags: ["evolution"],
   },
   {
     id: "2",
@@ -60,6 +61,7 @@ const wisdom: IWisdom[] = [
     areas: ["CREATIVITY", "MYSTERY"],
     type: "THEORY",
     era: "SCIENTIFIC",
+    tags: [],
   },
   {
     id: "3",
@@ -90,6 +92,7 @@ const wisdom: IWisdom[] = [
     areas: ["NETWORK"],
     type: "PRACTICE",
     era: "PREHISTORIC",
+    tags: ["non-duality"],
   },
   {
     id: "4",
@@ -120,6 +123,7 @@ const wisdom: IWisdom[] = [
     areas: ["WEALTH"],
     type: "PRACTICE",
     era: "CLASSICAL",
+    tags: ["karma"],
   },
   {
     id: "5",
@@ -150,6 +154,7 @@ const wisdom: IWisdom[] = [
     areas: ["PHILOSOPHY"],
     type: "PRACTICE",
     era: "CURRENT",
+    tags: [],
   },
 ];
 
