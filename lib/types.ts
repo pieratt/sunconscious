@@ -53,5 +53,5 @@ export interface IWisdom {
   areas: Area[];
   type: WisdomType;
   era: Era;
-  tags: string[];
+  tags?: string[];
 }

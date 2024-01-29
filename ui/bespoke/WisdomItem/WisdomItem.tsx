@@ -53,6 +53,10 @@ function AddedBy(props: Pick<Props, "addedBy" | "addedAt">) {
   );
 }
 
+function checkHasTags(tags?: string[]): tags is string[] {
+  return (tags && tags.length > 0) || false;
+}
+
 export default function WisdomItem(props: Props) {
   const { setFilter, area: activeAreas = [] } = useFeedFilters();
   return (
@@ -88,16 +92,18 @@ export default function WisdomItem(props: Props) {
             );
           })}
           <div>
-            {props.tags.map((tag, idx) => (
-              <span key={`wisdom-item${tag}`}>
-                <button>
-                  <Text className="text-neon uppercase">{tag}</Text>
-                </button>
-                <Text className="text-neon">
-                  {idx === props.tags.length - 1 ? "" : ", "}
-                </Text>
-              </span>
-            ))}
+            {checkHasTags(props.tags)
+              ? props.tags.map((tag, idx) => (
+                  <span key={`wisdom-item${tag}`}>
+                    <button>
+                      <Text className="text-neon uppercase">{tag}</Text>
+                    </button>
+                    <Text className="text-neon">
+                      {idx === (props.tags || []).length - 1 ? "" : ", "}
+                    </Text>
+                  </span>
+                ))
+              : null}
           </div>
         </div>
       </div>
