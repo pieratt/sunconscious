@@ -14,13 +14,13 @@ interface Props extends IWisdom {}
 function Source(props: IWisdom["source"]) {
   if (!props.url) {
     return (
-      <Text className="text-neon hover:text-neon uppercase">{props.name}</Text>
+      <Text className="text-neon hover:text-neon uppercase">{props.title}</Text>
     );
   }
   return (
     <Link href={props.url} target="_blank">
       <Text className="text-neon hover:text-neon-hover uppercase">
-        {props.name}
+        {props.title}
       </Text>
     </Link>
   );
