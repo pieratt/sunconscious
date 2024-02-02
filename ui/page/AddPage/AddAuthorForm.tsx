@@ -13,7 +13,7 @@ const initialState = {
 
 export default function AddAuthorForm() {
   const { pending } = useFormStatus();
-  const [state, formAction] = useFormState(addAuthorAction, initialState);
+  const [_, formAction] = useFormState(addAuthorAction, initialState);
   const ref = useRef<HTMLFormElement>(null);
 
   return (
