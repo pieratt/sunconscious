@@ -2,7 +2,7 @@ import React, { ComponentProps, forwardRef } from "react";
 import { Text } from "../Typography";
 import classNames from "classnames";
 
-interface Props extends ComponentProps<"button"> {
+export interface Props extends ComponentProps<"button"> {
   variant?: "solid" | "outline";
   size?: "sm" | "base" | "lg" | "xl";
   disabled?: boolean;
@@ -15,6 +15,7 @@ export const defaultButtonStyles = [
   "border",
   "focus:outline-none",
   "whitespace-nowrap",
+  "uppercase",
 ];
 
 const variantToStyles: Record<NonNullable<Props["variant"]>, string[]> = {
@@ -34,10 +35,10 @@ const variantToStyles: Record<NonNullable<Props["variant"]>, string[]> = {
 };
 
 const sizeToStyles: Record<NonNullable<Props["size"]>, string[]> = {
-  sm: ["rounded-full", "px-2.5", "py-1.5", "h-7"],
-  base: ["rounded-full", "px-3", "py-2", "h-9"],
-  lg: ["rounded-full", "px-4", "py-2", "h-10"],
-  xl: ["rounded-full", "px-6", "py-3", "h-12"],
+  sm: ["rounded-full", "px-2.5", "py-2", "h-8"],
+  base: ["rounded-full", "px-3", "py-2.5", "h-10"],
+  lg: ["rounded-full", "px-4", "py-2.5", "h-12"],
+  xl: ["rounded-full", "px-6", "py-3", "h-14"],
 };
 
 const InnerButton = (

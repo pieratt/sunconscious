@@ -1,37 +1,35 @@
 "use server";
 
-import { promises as fs } from "fs";
-
 import { v4 as uuidv4 } from "uuid";
-import { fetchUsers } from "@/db";
+import { fetchAuthors } from "@/db";
 
-export async function addUser(formData: FormData) {
-  const usersById = await fetchUsers();
+export async function addAuthor(formData: FormData) {
+  const authorsById = await fetchAuthors();
 
-  const usernames = Object.values(usersById).map((user) =>
-    user.username.toLowerCase()
+  const authorNames = Object.values(authorsById).map((author) =>
+    author.name.toLowerCase()
   );
-  const newUsername = (formData.get("username") || "") as string;
+  const newAuthorName = (formData.get("author") || "") as string;
 
-  if (newUsername === "") {
+  if (newAuthorName === "") {
     throw new Error("Username cannot be empty");
   }
 
-  if (usernames.includes(newUsername.toLowerCase())) {
-    throw new Error("Username already exists");
+  if (authorNames.includes(newAuthorName.toLowerCase())) {
+    throw new Error("Author already exists");
   }
 
   const newUser = {
     id: uuidv4(),
-    username: newUsername,
+    username: newAuthorName,
   };
 
-  const updatedUsers = {
-    ...usersById,
+  const updatedAuthors = {
+    ...authorsById,
     [newUser.id]: newUser,
   };
 
-  console.log(updatedUsers);
+  console.log(updatedAuthors);
 
-  // const updatedUsers = await fs.writeFile();
+  // const updatedAuthors = await fs.writeFile();
 }

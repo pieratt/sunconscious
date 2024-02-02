@@ -1,11 +1,26 @@
-import { addUser } from "@/lib/actions";
-import CreateUserButton from "./CreateUserButton";
+import { addAuthor } from "@/lib/actions";
+import AddAuthorButton from "./AddAuthorButton";
+import { Input } from "@/ui/common/Input";
+import { Text } from "@/ui/common/Typography";
 
 export default function AddPage() {
   return (
-    <form action={addUser}>
-      <input type="text" name="username" hidden defaultValue="kinney" />
-      <CreateUserButton />
-    </form>
+    <div className="rounded-2xl py-8 px-6 m-8 border-stone-400 border">
+      <form action={addAuthor} className="flex flex-col gap-2">
+        <Text className="text-neon uppercase">Add author</Text>
+        <Input
+          id="author"
+          name="author"
+          label="Author"
+          type="text"
+          size="lg"
+          hideLabel
+          required
+          placeholder="Name"
+          className="w-full"
+        />
+        <AddAuthorButton />
+      </form>
+    </div>
   );
 }
