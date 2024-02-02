@@ -39,15 +39,11 @@ export interface ISource {
   url?: string;
 }
 
-export interface IAttribution {
-  source: ISource;
-  authors: IAuthor[];
-}
-
 export interface IWisdom {
   id: string;
   excerpt: string;
-  attribution: IAttribution;
+  source: ISource;
+  authors: IAuthor[];
   addedBy: IUser;
   addedAt: string;
   areas: Area[];

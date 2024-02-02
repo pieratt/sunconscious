@@ -1,8 +1,7 @@
-import wisdom from "@/db/wisdom";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Area, Era, WisdomType } from "./types";
+import { Area, Era, IWisdom, WisdomType } from "./types";
 
-export function useFilteredWisdom() {
+export function useFilteredWisdom(wisdom: IWisdom[]) {
   const {
     area: activeAreas = [],
     era: activeEras = [],
