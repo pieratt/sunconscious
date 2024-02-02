@@ -11,7 +11,7 @@ function Avatar() {
 
 interface Props extends IWisdom {}
 
-function Source(props: IWisdom["attribution"]["source"]) {
+function Source(props: IWisdom["source"]) {
   if (!props.url) {
     return (
       <Text className="text-neon hover:text-neon uppercase">{props.name}</Text>
@@ -26,7 +26,7 @@ function Source(props: IWisdom["attribution"]["source"]) {
   );
 }
 
-function Attribution(props: IWisdom["attribution"]) {
+function Attribution(props: IWisdom) {
   return (
     <div className="flex flex-col items-start">
       <Source {...props.source} />
@@ -66,7 +66,7 @@ export default function WisdomItem(props: Props) {
           {props.excerpt}
         </Text>
         <div>
-          <Attribution {...props.attribution} />
+          <Attribution {...props} />
           {props.areas.map((area, idx) => {
             const { color } = AreaToAttrs[area];
             return (
