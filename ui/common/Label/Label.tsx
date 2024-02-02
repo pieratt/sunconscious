@@ -1,15 +1,20 @@
-import React, { type HTMLAttributes } from "react";
-import { TextVariant } from "./types";
-import { variantToTailwind } from "./utils";
+import React from "react";
+import { TextProps } from "../Typography";
 import classNames from "classnames";
-import { sizeToStyle } from "./Text";
+import { variantToTailwind } from "../Typography/utils";
 
-export interface Props extends HTMLAttributes<HTMLLabelElement> {
+export interface Props extends TextProps {
   htmlFor: string;
   disabled?: boolean;
-  variant?: TextVariant;
-  size?: "xs" | "sm" | "base" | "lg" | "xl";
 }
+
+const sizeToStyle: Record<NonNullable<Props["size"]>, string> = {
+  xs: "text-xs",
+  sm: "text-xs",
+  base: "text-sm",
+  lg: "text-base",
+  xl: "text-base",
+};
 
 const Label = ({
   variant = "mono",
