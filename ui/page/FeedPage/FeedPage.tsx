@@ -1,8 +1,5 @@
 "use client";
-import {
-  OpenRightSidebarButton,
-  RightSidebar,
-} from "@/ui/common/RightSidebar.tsx";
+import { OpenRightSidebarButton, RightSidebar } from "@/ui/common/RightSidebar";
 import { Text } from "@/ui/common/Typography";
 import useFeedContext from "@/context/FeedContext";
 import { WisdomItem } from "@/ui/bespoke/WisdomItem";
