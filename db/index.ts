@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import { v4 as uuidv4 } from "uuid";
 import { Area, Era, IWisdom, WisdomType } from "@/lib/types";
 
 const WISDOM_DB = "/db/wisdom.json";
@@ -82,4 +83,34 @@ export async function fetchEnrichedWisdom(): Promise<IWisdom[]> {
     .sort((a, b) => {
       return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
     });
+}
+
+export async function createAuthor(name: string) {
+  const authorsById = await fetchAuthors();
+  const authorNames = Object.values(authorsById).map((author) =>
+    author.name.toLowerCase()
+  );
+
+  if (name === "") {
+    throw new Error("Author name cannot be empty");
+  }
+
+  if (authorNames.includes(name.toLowerCase())) {
+    throw new Error("Author already exists");
+  }
+
+  const newAuthor = {
+    id: uuidv4(),
+    name,
+  };
+
+  const updatedAuthors = {
+    ...authorsById,
+    [newAuthor.id]: newAuthor,
+  };
+
+  await fs.writeFile(
+    process.cwd() + AUTHORS_DB,
+    JSON.stringify(updatedAuthors, null, 2)
+  );
 }

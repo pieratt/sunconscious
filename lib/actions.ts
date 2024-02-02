@@ -1,35 +1,19 @@
 "use server";
 
-import { v4 as uuidv4 } from "uuid";
-import { fetchAuthors } from "@/db";
+import { createAuthor } from "@/db";
 
-export async function addAuthor(formData: FormData) {
-  const authorsById = await fetchAuthors();
+export async function addAuthorAction(prevState: any, formData: FormData) {
+  const newAuthorName = (formData.get("authorName") || "") as string;
 
-  const authorNames = Object.values(authorsById).map((author) =>
-    author.name.toLowerCase()
-  );
-  const newAuthorName = (formData.get("author") || "") as string;
-
-  if (newAuthorName === "") {
-    throw new Error("Username cannot be empty");
+  if (!newAuthorName || newAuthorName.length < 3) {
+    console.error("Names must be at least 3 characters long.");
+    return;
   }
 
-  if (authorNames.includes(newAuthorName.toLowerCase())) {
-    throw new Error("Author already exists");
+  try {
+    const resp = await createAuthor(newAuthorName);
+  } catch (err) {
+    console.error(err);
   }
-
-  const newUser = {
-    id: uuidv4(),
-    username: newAuthorName,
-  };
-
-  const updatedAuthors = {
-    ...authorsById,
-    [newUser.id]: newUser,
-  };
-
-  console.log(updatedAuthors);
-
-  // const updatedAuthors = await fs.writeFile();
+  return { authorName: newAuthorName };
 }
