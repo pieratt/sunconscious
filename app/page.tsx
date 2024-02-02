@@ -1,10 +1,12 @@
 import { FeedProvider } from "@/context/FeedContext";
 import { FeedPage } from "@/ui/page/FeedPage";
+import { fetchEnrichedWisdom } from "@/db";
 
-export default function Home() {
+export default async function Home() {
+  const wisdom = await fetchEnrichedWisdom();
   return (
     <FeedProvider>
-      <FeedPage />
+      <FeedPage wisdom={wisdom} />
     </FeedProvider>
   );
 }

@@ -10,10 +10,15 @@ import { useFilteredWisdom } from "@/lib/feed";
 import FeedFilterPills from "./FeedFilterPills";
 import { Suspense } from "react";
 import FeedSidebarBody from "./FeedSidebarBody";
+import { IWisdom } from "@/lib/types";
 
-function FeedPageBody() {
+interface Props {
+  wisdom: IWisdom[];
+}
+
+function FeedPageBody(props: Props) {
   const { dispatch, isSidebarOpen } = useFeedContext();
-  const filteredWisdom = useFilteredWisdom();
+  const filteredWisdom = useFilteredWisdom(props.wisdom);
   return (
     <div className="relative flex w-full py-6 px-4">
       <div className="w-full md:mr-96">
@@ -44,10 +49,10 @@ function FeedPageBody() {
   );
 }
 
-export default function FeedPage() {
+export default function FeedPage(props: Props) {
   return (
     <Suspense>
-      <FeedPageBody />
+      <FeedPageBody {...props} />
     </Suspense>
   );
 }
