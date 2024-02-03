@@ -46,6 +46,7 @@ export async function addWisdomAction(_: any, input: FormData) {
   try {
     await createWisdom(wisdom);
     revalidatePath("/add");
+    revalidatePath("/");
     return { ok: true };
   } catch (err) {
     if (err instanceof Error) {
