@@ -37,7 +37,7 @@ function getAreas(input: FormData): Area[] {
 }
 
 export function cleanWisdomInput(input: FormData): Omit<WisdomRecord, "id"> {
-  const authors = input.getAll("authors") as string[];
+  const author = input.get("author") as string;
   const tags = input.get("tags") as string;
   const areas = getAreas(input);
 
@@ -49,7 +49,7 @@ export function cleanWisdomInput(input: FormData): Omit<WisdomRecord, "id"> {
   const wisdom: Omit<WisdomRecord, "id"> = {
     excerpt: (input.get("excerpt") || "") as string,
     source: (input.get("source") || "") as string,
-    authors: authors.filter((author) => author !== ""),
+    authors: [author],
     addedBy: "1",
     addedAt: new Date().toISOString(),
     areas,

@@ -11,6 +11,7 @@ import { SelectInstance } from "react-select";
 import { EraToAttrs, eras } from "@/lib/eras";
 import { Era, IAuthor, ISource, WisdomType } from "@/lib/types";
 import { WisdomTypeToAttrs, wisdomTypes } from "@/lib/wisdomTypes";
+import AreaCheckboxes from "./AreaCheckboxes";
 
 type Option = { value: string; label: string };
 type EraOption = { value: Era; label: string };
@@ -35,6 +36,9 @@ export default function AddWisdomForm(props: {
         formAction(formData);
         ref.current?.reset();
         sourceRef.current?.clearValue();
+        authorRef.current?.clearValue();
+        eraRef.current?.clearValue();
+        wisdomTypeRef.current?.clearValue();
       }}
       className="flex flex-col gap-2"
     >
@@ -111,6 +115,7 @@ export default function AddWisdomForm(props: {
         disabled={pending}
         placeholder="Type"
       />
+      <AreaCheckboxes />
       <TextArea
         id="excerpt"
         name="excerpt"
