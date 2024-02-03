@@ -1,8 +1,9 @@
 import React, { ComponentProps, forwardRef } from "react";
-import { Label, LabelProps, Text, TextProps } from "../Typography";
+import { Label, Text } from "../Typography";
 import classNames from "classnames";
+import { inputBaseStyles, inputVariantsToStyles } from "../Input";
 
-export interface Props extends Omit<ComponentProps<"input">, "size"> {
+export interface Props extends Omit<ComponentProps<"textarea">, "size"> {
   id: string;
   label: React.ReactNode;
   hideLabel?: boolean;
@@ -11,49 +12,14 @@ export interface Props extends Omit<ComponentProps<"input">, "size"> {
   size: "sm" | "base" | "lg" | "xl";
 }
 
-export const sizeToTextSize: Record<
-  NonNullable<Props["size"]>,
-  TextProps["size"]
-> = {
-  sm: "xs",
-  base: "sm",
-  lg: "base",
-  xl: "base",
+const sizesToStyles = {
+  sm: ["text-xs", "p-2.5"],
+  base: ["text-sm", "p-3"],
+  lg: ["text-base", "p-3"],
+  xl: ["text-lg", "p-3.5"],
 };
 
-export const sizeToLabelSize: Record<
-  NonNullable<Props["size"]>,
-  LabelProps["size"]
-> = {
-  sm: "xs",
-  base: "sm",
-  lg: "base",
-  xl: "base",
-};
-
-export const baseStyles = [
-  "font-mono",
-  "flex",
-  "w-full",
-  "bg-black",
-  "placeholder:text-stone-600",
-  "leading-none",
-  "items-center",
-];
-
-export const variantsToStyles = {
-  primary: ["border-transparent", "focus:outline-none"],
-  error: ["border-red-600", "focus:border-red-600"],
-};
-
-export const sizesToStyles = {
-  sm: ["text-xs", "h-8", "px-2.5"],
-  base: ["text-sm", "h-10", "px-3"],
-  lg: ["text-base", "h-12", "px-3"],
-  xl: ["text-lg", "h-14", "px-3.5"],
-};
-
-const InnerInput = (
+const InnerTextArea = (
   {
     id,
     error,
@@ -63,7 +29,7 @@ const InnerInput = (
     containerClassName,
     ...props
   }: Props,
-  ref: React.Ref<HTMLInputElement>
+  ref: React.Ref<HTMLTextAreaElement>
 ) => {
   const variant = error ? "error" : "primary";
   const size = sizeProp || "base";
@@ -83,13 +49,14 @@ const InnerInput = (
           containerClassName
         )}
       >
-        <input
+        <textarea
           ref={ref}
           id={id}
           className={classNames(
-            baseStyles,
+            inputBaseStyles,
+            "font-serif",
             sizesToStyles[size],
-            variantsToStyles[variant],
+            inputVariantsToStyles[variant],
             className
           )}
           {...props}
@@ -105,6 +72,6 @@ const InnerInput = (
   );
 };
 
-InnerInput.displayName = "Input";
+InnerTextArea.displayName = "TextArea";
 
-export default forwardRef(InnerInput);
+export default forwardRef(InnerTextArea);

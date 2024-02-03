@@ -1,51 +1,57 @@
 "use server";
 
-import { createAuthor, createSource } from "@/db";
+import { createAuthor, createSource, createWisdom } from "@/db";
 import { revalidatePath } from "next/cache";
+import {
+  cleanAddAuthorInput,
+  cleanSourceInput,
+  cleanWisdomInput,
+} from "./clean";
 
-export async function addAuthorAction(prevState: any, formData: FormData) {
-  const name = (formData.get("name") || "") as string;
-
-  if (!name || name.length < 3) {
-    console.error("Names must be at least 3 characters long.");
-    return;
-  }
+export async function addAuthorAction(_: any, input: FormData) {
+  const author = cleanAddAuthorInput(input);
 
   try {
-    await createAuthor({ name });
+    await createAuthor(author);
     revalidatePath("/add");
+    return { ok: true };
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
   }
-  return { name };
 }
 
-export async function addSourceAction(prevState: any, formData: FormData) {
-  const title = (formData.get("title") || "") as string;
-  const authors = formData.getAll("authors") as string[];
-  const url = (formData.get("url") || undefined) as string | undefined;
-
-  if (!title || title.length < 3) {
-    console.error("Source titles must be at least 3 characters long.");
-    return;
-  }
-
-  if (authors.length === 0) {
-    console.error("At least one author must be selected.");
-    return;
-  }
-
-  const source = {
-    title: title,
-    authors: authors.filter((author) => author !== ""),
-    url,
-  };
+export async function addSourceAction(_: any, input: FormData) {
+  const source = cleanSourceInput(input);
 
   try {
     await createSource(source);
     revalidatePath("/add");
+    return { ok: true };
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
   }
-  return source;
+}
+
+export async function addWisdomAction(_: any, input: FormData) {
+  const wisdom = cleanWisdomInput(input);
+
+  try {
+    await createWisdom(wisdom);
+    revalidatePath("/add");
+    return { ok: true };
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
+  }
 }

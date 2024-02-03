@@ -37,6 +37,7 @@ export interface ISource {
   id: string;
   title: string;
   url?: string;
+  authors: IAuthor[];
 }
 
 export interface IWisdom {

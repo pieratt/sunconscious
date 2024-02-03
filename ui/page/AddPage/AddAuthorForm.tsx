@@ -6,15 +6,10 @@ import { Input } from "@/ui/common/Input";
 import { Text } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef } from "react";
-import { AuthorRecord } from "@/db";
-
-const initialState: Omit<AuthorRecord, "id"> = {
-  name: "",
-};
 
 export default function AddAuthorForm() {
   const { pending } = useFormStatus();
-  const [_, formAction] = useFormState(addAuthorAction, initialState);
+  const [formState, formAction] = useFormState(addAuthorAction, { ok: true });
   const ref = useRef<HTMLFormElement>(null);
 
   return (
@@ -40,6 +35,11 @@ export default function AddAuthorForm() {
         className="w-full"
       />
       <AddButton />
+      {formState && !formState.ok ? (
+        <Text size="xs" className="text-red-600">
+          {formState.message}
+        </Text>
+      ) : null}
     </form>
   );
 }
