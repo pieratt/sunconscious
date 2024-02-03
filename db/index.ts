@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import { v4 as uuidv4 } from "uuid";
-import { Area, Era, IWisdom, WisdomType } from "@/lib/types";
+import { Area, Era, IAuthor, ISource, IWisdom, WisdomType } from "@/lib/types";
 import {
   validateCreateAuthor,
   validateCreateSource,
@@ -72,10 +72,14 @@ export async function fetchEnrichedWisdom(): Promise<IWisdom[]> {
 
   return wisdomArray
     .map((wisdom) => {
+      const sourceAuthorIds = sourcesById[wisdom.source].authors;
       return {
         id: wisdom.id.toString(),
         excerpt: wisdom.excerpt,
-        source: sourcesById[wisdom.source],
+        source: {
+          ...sourcesById[wisdom.source],
+          authors: sourceAuthorIds.map((authorId) => authorsById[authorId]),
+        },
         authors: wisdom.authors.map((authorId) => authorsById[authorId]),
         addedBy: usersById[wisdom.addedBy],
         addedAt: wisdom.addedAt,
@@ -90,10 +94,22 @@ export async function fetchEnrichedWisdom(): Promise<IWisdom[]> {
     });
 }
 
-export async function fetchEnrichedAuthors(): Promise<AuthorRecord[]> {
+export async function fetchEnrichedAuthors(): Promise<IAuthor[]> {
   const authorsById = await fetchAuthors();
 
   return Object.values(authorsById);
+}
+
+export async function fetchEnrichedSources(): Promise<ISource[]> {
+  const sourcesById = await fetchSources();
+  const authorsById = await fetchAuthors();
+
+  return Object.values(sourcesById).map((source) => {
+    return {
+      ...source,
+      authors: source.authors.map((authorId) => authorsById[authorId]),
+    };
+  });
 }
 
 export async function createAuthor(author: Omit<AuthorRecord, "id">) {

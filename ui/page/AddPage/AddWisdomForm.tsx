@@ -2,28 +2,45 @@
 
 import { addWisdomAction } from "@/lib/actions";
 import AddButton from "./AddButton";
-import { Input } from "@/ui/common/Input";
-import { Text } from "@/ui/common/Typography";
+import { Text, TextArea } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef } from "react";
-import { AuthorRecord, SourceRecord, WisdomRecord } from "@/db";
+import { WisdomRecord } from "@/db";
 import { Select } from "@/ui/common/Select";
 
 import { SelectInstance } from "react-select";
+import { EraToAttrs, eras } from "@/lib/eras";
+import { Area, Era, IAuthor, ISource, WisdomType } from "@/lib/types";
+import { WisdomTypeToAttrs, wisdomTypes } from "@/lib/wisdomTypes";
 
-const initialState: Omit<WisdomRecord, "id"> = {};
+const initialState: Omit<WisdomRecord, "id"> = {
+  excerpt: "",
+  source: "",
+  authors: [],
+  addedBy: "1",
+  addedAt: new Date().toISOString(),
+  areas: [],
+  type: "THEORY",
+  era: "CURRENT",
+  tags: [],
+};
 
 type Option = { value: string; label: string };
+type EraOption = { value: Era; label: string };
+type AreaOption = { value: Area; label: string };
+type WisdomTypeOption = { value: WisdomType; label: string };
 
 export default function AddWisdomForm(props: {
-  authors: AuthorRecord[];
-  sources: SourceRecord[];
+  authors: IAuthor[];
+  sources: ISource[];
 }) {
   const { pending } = useFormStatus();
   const [_, formAction] = useFormState(addWisdomAction, initialState);
   const ref = useRef<HTMLFormElement>(null);
   const sourceRef = useRef<SelectInstance | null>(null);
   const authorRef = useRef<SelectInstance | null>(null);
+  const eraRef = useRef<SelectInstance | null>(null);
+  const wisdomTypeRef = useRef<SelectInstance | null>(null);
 
   return (
     <form
@@ -51,6 +68,7 @@ export default function AddWisdomForm(props: {
         hideLabel
         isClearable
         required
+        disabled={pending}
         placeholder="Source"
       />
       <Select<Option>
@@ -68,30 +86,64 @@ export default function AddWisdomForm(props: {
         hideLabel
         isClearable
         required
+        disabled={pending}
         placeholder="Author"
       />
-
-      <Input
-        disabled={pending}
-        id="title"
-        name="title"
-        label="Title"
-        type="text"
+      <Select<EraOption>
+        // FIXME: react-select types are a pita
+        // @ts-expect-error
+        ref={eraRef}
+        name="era"
         size="lg"
+        id="wisdom-era"
+        options={eras.map((era) => ({
+          label: EraToAttrs[era].name,
+          value: era,
+        }))}
+        label="Era"
+        hideLabel
+        isClearable
+        required
+        disabled={pending}
+        placeholder="Era"
+      />
+      <Select<WisdomTypeOption>
+        // FIXME: react-select types are a pita
+        // @ts-expect-error
+        ref={wisdomTypeRef}
+        name="type"
+        size="lg"
+        id="wisdom-type"
+        options={wisdomTypes.map((type) => ({
+          label: WisdomTypeToAttrs[type].name,
+          value: type,
+        }))}
+        label="Type"
+        hideLabel
+        isClearable
+        required
+        disabled={pending}
+        placeholder="Type"
+      />
+      <TextArea
+        id="excerpt"
+        name="excerpt"
+        label="Excerpt"
+        size="xl"
+        rows={12}
         hideLabel
         required
-        placeholder="Title"
+        placeholder="Enter your text here"
         className="w-full"
       />
-      <Input
-        disabled={pending}
-        id="url"
-        name="url"
-        label="Url"
-        type="text"
-        size="lg"
+      <TextArea
+        id="tags"
+        name="tags"
+        label="Tags"
+        size="xl"
+        rows={4}
         hideLabel
-        placeholder="URL (optional)"
+        placeholder="Tag, tag"
         className="w-full"
       />
 

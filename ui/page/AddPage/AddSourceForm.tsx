@@ -81,6 +81,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
               isClearable
               required
               placeholder="Author 1"
+              disabled={pending}
             />
           </div>
           <button
@@ -109,6 +110,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
                 isClearable
                 required
                 placeholder={`Author ${i + 2}`}
+                disabled={pending}
               />
             </div>
             <button
