@@ -43,7 +43,7 @@ export function cleanWisdomInput(input: FormData): Omit<WisdomRecord, "id"> {
 
   const formattedTags = tags
     .split(",")
-    .map((tag) => tag.trim())
+    .map((tag) => tag.trim().toLowerCase())
     .filter((tag) => tag !== "");
 
   const wisdom: Omit<WisdomRecord, "id"> = {
