@@ -35,7 +35,7 @@ export interface IUser {
 
 export interface ISource {
   id: string;
-  name: string;
+  title: string;
   url?: string;
 }
 

@@ -3,7 +3,7 @@
 import { Button } from "@/ui/common/Button";
 import { useFormStatus } from "react-dom";
 
-export default function AddAuthorButton() {
+export default function AddButton() {
   const { pending } = useFormStatus();
 
   return (

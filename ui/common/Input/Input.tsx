@@ -31,7 +31,8 @@ export const sizeToLabelSize: Record<
   xl: "base",
 };
 
-const baseStyles = [
+export const baseStyles = [
+  "font-mono",
   "flex",
   "w-full",
   "bg-black",
@@ -40,12 +41,12 @@ const baseStyles = [
   "items-center",
 ];
 
-const variantsToStyles = {
+export const variantsToStyles = {
   primary: ["border-transparent", "focus:outline-none"],
   error: ["border-red-600", "focus:border-red-600"],
 };
 
-const sizesToStyles = {
+export const sizesToStyles = {
   sm: ["text-xs", "h-8", "px-2.5"],
   base: ["text-sm", "h-10", "px-3"],
   lg: ["text-base", "h-12", "px-3"],

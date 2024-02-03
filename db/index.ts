@@ -7,7 +7,7 @@ const USERS_DB = "/db/users.json";
 const SOURCES_DB = "/db/sources.json";
 const AUTHORS_DB = "/db/authors.json";
 
-interface WisdomRecord {
+export interface WisdomRecord {
   id: string;
   excerpt: string;
   source: string;
@@ -20,19 +20,19 @@ interface WisdomRecord {
   tags: string[];
 }
 
-interface UserRecord {
+export interface UserRecord {
   id: string;
   username: string;
 }
 
-interface SourceRecord {
+export interface SourceRecord {
   id: string;
-  name: string;
+  title: string;
   url?: string;
   authors: string[];
 }
 
-interface AuthorRecord {
+export interface AuthorRecord {
   id: string;
   name: string;
 }
@@ -85,7 +85,13 @@ export async function fetchEnrichedWisdom(): Promise<IWisdom[]> {
     });
 }
 
-export async function createAuthor(name: string) {
+export async function fetchEnrichedAuthors(): Promise<AuthorRecord[]> {
+  const authorsById = await fetchAuthors();
+
+  return Object.values(authorsById);
+}
+
+export async function createAuthor({ name }: Omit<AuthorRecord, "id">) {
   const authorsById = await fetchAuthors();
   const authorNames = Object.values(authorsById).map((author) =>
     author.name.toLowerCase()
@@ -112,5 +118,41 @@ export async function createAuthor(name: string) {
   await fs.writeFile(
     process.cwd() + AUTHORS_DB,
     JSON.stringify(updatedAuthors, null, 2)
+  );
+}
+
+export async function createSource({
+  title,
+  authors,
+  url,
+}: Omit<SourceRecord, "id">) {
+  const sourcesById = await fetchSources();
+  const sourceTitles = Object.values(sourcesById).map((source) =>
+    source.title.toLowerCase()
+  );
+
+  if (title === "") {
+    throw new Error("Source title cannot be empty");
+  }
+
+  if (sourceTitles.includes(title.toLowerCase())) {
+    throw new Error("Source already exists");
+  }
+
+  const newSource: SourceRecord = {
+    id: uuidv4(),
+    title,
+    authors,
+    url,
+  };
+
+  const updatedSources = {
+    ...sourcesById,
+    [newSource.id]: newSource,
+  };
+
+  await fs.writeFile(
+    process.cwd() + SOURCES_DB,
+    JSON.stringify(updatedSources, null, 2)
   );
 }

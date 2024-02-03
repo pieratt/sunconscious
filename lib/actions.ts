@@ -1,19 +1,51 @@
 "use server";
 
-import { createAuthor } from "@/db";
+import { createAuthor, createSource } from "@/db";
+import { revalidatePath } from "next/cache";
 
 export async function addAuthorAction(prevState: any, formData: FormData) {
-  const newAuthorName = (formData.get("authorName") || "") as string;
+  const name = (formData.get("name") || "") as string;
 
-  if (!newAuthorName || newAuthorName.length < 3) {
+  if (!name || name.length < 3) {
     console.error("Names must be at least 3 characters long.");
     return;
   }
 
   try {
-    const resp = await createAuthor(newAuthorName);
+    await createAuthor({ name });
+    revalidatePath("/add");
   } catch (err) {
     console.error(err);
   }
-  return { authorName: newAuthorName };
+  return { name };
+}
+
+export async function addSourceAction(prevState: any, formData: FormData) {
+  const title = (formData.get("title") || "") as string;
+  const authors = formData.getAll("authors") as string[];
+  const url = (formData.get("url") || undefined) as string | undefined;
+
+  if (!title || title.length < 3) {
+    console.error("Source titles must be at least 3 characters long.");
+    return;
+  }
+
+  if (authors.length === 0) {
+    console.error("At least one author must be selected.");
+    return;
+  }
+
+  const source = {
+    title: title,
+    authors: authors.filter((author) => author !== ""),
+    url,
+  };
+
+  try {
+    await createSource(source);
+    revalidatePath("/add");
+  } catch (err) {
+    console.error(err);
+  }
+  return source;
 }

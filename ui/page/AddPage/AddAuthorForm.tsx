@@ -1,14 +1,15 @@
 "use client";
 
 import { addAuthorAction } from "@/lib/actions";
-import AddAuthorButton from "./AddAuthorButton";
+import AddButton from "./AddButton";
 import { Input } from "@/ui/common/Input";
 import { Text } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef } from "react";
+import { AuthorRecord } from "@/db";
 
-const initialState = {
-  authorName: "",
+const initialState: Omit<AuthorRecord, "id"> = {
+  name: "",
 };
 
 export default function AddAuthorForm() {
@@ -28,8 +29,8 @@ export default function AddAuthorForm() {
       <Text className="text-neon uppercase">Add author</Text>
       <Input
         disabled={pending}
-        id="authorName"
-        name="authorName"
+        id="name"
+        name="name"
         label="Author"
         type="text"
         size="lg"
@@ -38,7 +39,7 @@ export default function AddAuthorForm() {
         placeholder="Name"
         className="w-full"
       />
-      <AddAuthorButton />
+      <AddButton />
     </form>
   );
 }
