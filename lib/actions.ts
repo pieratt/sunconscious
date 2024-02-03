@@ -14,10 +14,14 @@ export async function addAuthorAction(_: any, input: FormData) {
   try {
     await createAuthor(author);
     revalidatePath("/add");
+    return { ok: true };
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
   }
-  return author;
 }
 
 export async function addSourceAction(_: any, input: FormData) {
@@ -26,10 +30,14 @@ export async function addSourceAction(_: any, input: FormData) {
   try {
     await createSource(source);
     revalidatePath("/add");
+    return { ok: true };
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
   }
-  return source;
 }
 
 export async function addWisdomAction(_: any, input: FormData) {
@@ -38,8 +46,12 @@ export async function addWisdomAction(_: any, input: FormData) {
   try {
     await createWisdom(wisdom);
     revalidatePath("/add");
+    return { ok: true };
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      console.error(err);
+      return { ok: false, message: err.message };
+    }
+    return { ok: false };
   }
-  return wisdom;
 }

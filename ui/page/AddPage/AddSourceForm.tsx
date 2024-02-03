@@ -6,22 +6,17 @@ import { Input } from "@/ui/common/Input";
 import { Text } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef, useState } from "react";
-import { AuthorRecord, SourceRecord } from "@/db";
+import { AuthorRecord } from "@/db";
 import { Select } from "@/ui/common/Select";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { SelectInstance } from "react-select";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
-const initialState: Omit<SourceRecord, "id"> = {
-  title: "",
-  authors: [],
-};
-
 type Option = { value: string; label: string };
 
 export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
   const { pending } = useFormStatus();
-  const [_, formAction] = useFormState(addSourceAction, initialState);
+  const [formState, formAction] = useFormState(addSourceAction, { ok: true });
   const [addlAuthors, setAddlAuthors] = useState(0);
   const ref = useRef<HTMLFormElement>(null);
   const selectRef = useRef<SelectInstance | null>(null);
@@ -127,6 +122,12 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
       </div>
 
       <AddButton />
+
+      {formState && !formState.ok ? (
+        <Text size="xs" className="text-red-600">
+          {formState.message}
+        </Text>
+      ) : null}
     </form>
   );
 }

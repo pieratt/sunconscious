@@ -5,29 +5,15 @@ import AddButton from "./AddButton";
 import { Text, TextArea } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef } from "react";
-import { WisdomRecord } from "@/db";
 import { Select } from "@/ui/common/Select";
 
 import { SelectInstance } from "react-select";
 import { EraToAttrs, eras } from "@/lib/eras";
-import { Area, Era, IAuthor, ISource, WisdomType } from "@/lib/types";
+import { Era, IAuthor, ISource, WisdomType } from "@/lib/types";
 import { WisdomTypeToAttrs, wisdomTypes } from "@/lib/wisdomTypes";
-
-const initialState: Omit<WisdomRecord, "id"> = {
-  excerpt: "",
-  source: "",
-  authors: [],
-  addedBy: "1",
-  addedAt: new Date().toISOString(),
-  areas: [],
-  type: "THEORY",
-  era: "CURRENT",
-  tags: [],
-};
 
 type Option = { value: string; label: string };
 type EraOption = { value: Era; label: string };
-type AreaOption = { value: Area; label: string };
 type WisdomTypeOption = { value: WisdomType; label: string };
 
 export default function AddWisdomForm(props: {
@@ -35,7 +21,7 @@ export default function AddWisdomForm(props: {
   sources: ISource[];
 }) {
   const { pending } = useFormStatus();
-  const [_, formAction] = useFormState(addWisdomAction, initialState);
+  const [formState, formAction] = useFormState(addWisdomAction, { ok: true });
   const ref = useRef<HTMLFormElement>(null);
   const sourceRef = useRef<SelectInstance | null>(null);
   const authorRef = useRef<SelectInstance | null>(null);
@@ -148,6 +134,12 @@ export default function AddWisdomForm(props: {
       />
 
       <AddButton />
+
+      {formState && !formState.ok ? (
+        <Text size="xs" className="text-red-600">
+          {formState.message}
+        </Text>
+      ) : null}
     </form>
   );
 }
