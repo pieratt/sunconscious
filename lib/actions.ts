@@ -11,7 +11,7 @@ export async function addAuthorAction(prevState: any, formData: FormData) {
   }
 
   try {
-    const resp = await createAuthor({ name });
+    await createAuthor({ name });
   } catch (err) {
     console.error(err);
   }
@@ -35,13 +35,12 @@ export async function addSourceAction(prevState: any, formData: FormData) {
 
   const source = {
     title: title,
-    authors,
+    authors: authors.filter((author) => author !== ""),
     url,
   };
 
   try {
-    console.log(source);
-    // const resp = await createSource(source);
+    await createSource(source);
   } catch (err) {
     console.error(err);
   }

@@ -85,6 +85,12 @@ export async function fetchEnrichedWisdom(): Promise<IWisdom[]> {
     });
 }
 
+export async function fetchEnrichedAuthors(): Promise<AuthorRecord[]> {
+  const authorsById = await fetchAuthors();
+
+  return Object.values(authorsById);
+}
+
 export async function createAuthor({ name }: Omit<AuthorRecord, "id">) {
   const authorsById = await fetchAuthors();
   const authorNames = Object.values(authorsById).map((author) =>
