@@ -60,7 +60,6 @@ export default function AddWisdomForm(props: {
         required
         disabled={pending}
         placeholder="Source"
-        className="text-white"
       />
       <Select<Option>
         // FIXME: react-select types are a pita
@@ -79,7 +78,6 @@ export default function AddWisdomForm(props: {
         required
         disabled={pending}
         placeholder="Author"
-        className="text-white"
       />
       <Select<EraOption>
         // FIXME: react-select types are a pita
@@ -98,7 +96,6 @@ export default function AddWisdomForm(props: {
         required
         disabled={pending}
         placeholder="Era"
-        className="text-white"
       />
       <Select<WisdomTypeOption>
         // FIXME: react-select types are a pita
@@ -117,7 +114,6 @@ export default function AddWisdomForm(props: {
         required
         disabled={pending}
         placeholder="Type"
-        className="text-white"
       />
       <AreaCheckboxes />
       <TextArea
@@ -129,7 +125,6 @@ export default function AddWisdomForm(props: {
         hideLabel
         required
         placeholder="Enter your text here"
-        className="w-full text-white"
       />
       <TextArea
         id="tags"
@@ -139,7 +134,6 @@ export default function AddWisdomForm(props: {
         rows={4}
         hideLabel
         placeholder="Tag, tag"
-        className="w-full text-white"
       />
 
       <AddButton />

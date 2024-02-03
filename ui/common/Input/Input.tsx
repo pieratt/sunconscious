@@ -36,6 +36,7 @@ export const baseStyles = [
   "flex",
   "w-full",
   "bg-black",
+  "text-white",
   "placeholder:text-stone-600",
   "leading-none",
   "items-center",

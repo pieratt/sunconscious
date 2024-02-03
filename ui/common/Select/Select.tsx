@@ -159,7 +159,10 @@ export const InnerSelect = <
               );
             },
             noOptionsMessage: () => {
-              return classNames(sizeToNoOptionSize[size], "text-neon bg-black");
+              return classNames(
+                sizeToNoOptionSize[size],
+                "text-white bg-black"
+              );
             },
           }}
           {...props}
