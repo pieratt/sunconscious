@@ -1,6 +1,7 @@
 "use server";
 
 import { createAuthor, createSource } from "@/db";
+import { revalidatePath } from "next/cache";
 
 export async function addAuthorAction(prevState: any, formData: FormData) {
   const name = (formData.get("name") || "") as string;
@@ -12,6 +13,7 @@ export async function addAuthorAction(prevState: any, formData: FormData) {
 
   try {
     await createAuthor({ name });
+    revalidatePath("/add");
   } catch (err) {
     console.error(err);
   }
@@ -41,6 +43,7 @@ export async function addSourceAction(prevState: any, formData: FormData) {
 
   try {
     await createSource(source);
+    revalidatePath("/add");
   } catch (err) {
     console.error(err);
   }
