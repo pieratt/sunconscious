@@ -140,7 +140,7 @@ export const InnerSelect = <
               ),
             option: ({ isFocused, isSelected }) =>
               classNames(
-                "cursor-pointer select-none relative",
+                "cursor-pointer select-none relative text-white",
                 sizeToOptionSize[size],
                 isSelected ? "bg-stone-600" : "hover:bg-stone-700 ",
                 !isSelected && isFocused ? "bg-stone-700" : ""
