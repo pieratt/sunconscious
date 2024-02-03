@@ -1,7 +1,7 @@
 "use client";
 
 import { addSourceAction } from "@/lib/actions";
-import AddAuthorButton from "./AddButton";
+import AddButton from "./AddButton";
 import { Input } from "@/ui/common/Input";
 import { Text } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
@@ -124,7 +124,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
         ))}
       </div>
 
-      <AddAuthorButton />
+      <AddButton />
     </form>
   );
 }
