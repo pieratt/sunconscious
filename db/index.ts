@@ -1,6 +1,11 @@
 import { promises as fs } from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { Area, Era, IWisdom, WisdomType } from "@/lib/types";
+import {
+  validateCreateAuthor,
+  validateCreateSource,
+  validateCreateWisdom,
+} from "@/lib/validators";
 
 const WISDOM_DB = "/db/wisdom.json";
 const USERS_DB = "/db/users.json";
@@ -91,23 +96,14 @@ export async function fetchEnrichedAuthors(): Promise<AuthorRecord[]> {
   return Object.values(authorsById);
 }
 
-export async function createAuthor({ name }: Omit<AuthorRecord, "id">) {
+export async function createAuthor(author: Omit<AuthorRecord, "id">) {
   const authorsById = await fetchAuthors();
-  const authorNames = Object.values(authorsById).map((author) =>
-    author.name.toLowerCase()
-  );
 
-  if (name === "") {
-    throw new Error("Author name cannot be empty");
-  }
-
-  if (authorNames.includes(name.toLowerCase())) {
-    throw new Error("Author already exists");
-  }
+  validateCreateAuthor(author, Object.values(authorsById));
 
   const newAuthor = {
     id: uuidv4(),
-    name,
+    ...author,
   };
 
   const updatedAuthors = {
@@ -121,29 +117,14 @@ export async function createAuthor({ name }: Omit<AuthorRecord, "id">) {
   );
 }
 
-export async function createSource({
-  title,
-  authors,
-  url,
-}: Omit<SourceRecord, "id">) {
+export async function createSource(source: Omit<SourceRecord, "id">) {
   const sourcesById = await fetchSources();
-  const sourceTitles = Object.values(sourcesById).map((source) =>
-    source.title.toLowerCase()
-  );
 
-  if (title === "") {
-    throw new Error("Source title cannot be empty");
-  }
-
-  if (sourceTitles.includes(title.toLowerCase())) {
-    throw new Error("Source already exists");
-  }
+  validateCreateSource(source, Object.values(sourcesById));
 
   const newSource: SourceRecord = {
     id: uuidv4(),
-    title,
-    authors,
-    url,
+    ...source,
   };
 
   const updatedSources = {
@@ -154,5 +135,26 @@ export async function createSource({
   await fs.writeFile(
     process.cwd() + SOURCES_DB,
     JSON.stringify(updatedSources, null, 2)
+  );
+}
+
+export async function createWisdom(wisdom: Omit<WisdomRecord, "id">) {
+  const wisdomById = await fetchWisdom();
+
+  validateCreateWisdom(wisdom);
+
+  const newWisdom = {
+    id: uuidv4(),
+    ...wisdom,
+  };
+
+  const updatedWisdom = {
+    ...wisdomById,
+    [newWisdom.id]: newWisdom,
+  };
+
+  await fs.writeFile(
+    process.cwd() + WISDOM_DB,
+    JSON.stringify(updatedWisdom, null, 2)
   );
 }
