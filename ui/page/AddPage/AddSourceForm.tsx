@@ -54,7 +54,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
         size="lg"
         hideLabel
         placeholder="URL (optional)"
-        className="w-full"
+        className="w-full text-white"
       />
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 w-full">
@@ -77,6 +77,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
               required
               placeholder="Author 1"
               disabled={pending}
+              className="text-white"
             />
           </div>
           <button
@@ -106,6 +107,7 @@ export default function AddSourceForm(props: { authors: AuthorRecord[] }) {
                 required
                 placeholder={`Author ${i + 2}`}
                 disabled={pending}
+                className="text-white"
               />
             </div>
             <button

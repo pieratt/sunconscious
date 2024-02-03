@@ -32,7 +32,7 @@ export default function AddAuthorForm() {
         hideLabel
         required
         placeholder="Name"
-        className="w-full"
+        className="w-full text-white"
       />
       <AddButton />
       {formState && !formState.ok ? (
