@@ -1,20 +1,17 @@
 "use client";
 
-import { addSourceAction } from "@/lib/actions";
+import { addWisdomAction } from "@/lib/actions";
 import AddButton from "./AddButton";
 import { Input } from "@/ui/common/Input";
 import { Text } from "@/ui/common/Typography";
 import { useFormState, useFormStatus } from "react-dom";
 import { useRef } from "react";
-import { AuthorRecord, SourceRecord } from "@/db";
+import { AuthorRecord, SourceRecord, WisdomRecord } from "@/db";
 import { Select } from "@/ui/common/Select";
 
 import { SelectInstance } from "react-select";
 
-const initialState: Omit<SourceRecord, "id"> = {
-  title: "",
-  author: undefined,
-};
+const initialState: Omit<WisdomRecord, "id"> = {};
 
 type Option = { value: string; label: string };
 
@@ -23,7 +20,7 @@ export default function AddWisdomForm(props: {
   sources: SourceRecord[];
 }) {
   const { pending } = useFormStatus();
-  const [_, formAction] = useFormState(addSourceAction, initialState);
+  const [_, formAction] = useFormState(addWisdomAction, initialState);
   const ref = useRef<HTMLFormElement>(null);
   const sourceRef = useRef<SelectInstance | null>(null);
   const authorRef = useRef<SelectInstance | null>(null);

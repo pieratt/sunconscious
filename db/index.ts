@@ -5,7 +5,7 @@ import {
   validateCreateAuthor,
   validateCreateSource,
   validateCreateWisdom,
-} from "@/lib/validators";
+} from "@/lib/validate";
 
 const WISDOM_DB = "/db/wisdom.json";
 const USERS_DB = "/db/users.json";

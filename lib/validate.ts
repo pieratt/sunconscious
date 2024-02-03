@@ -1,8 +1,20 @@
 import { AuthorRecord, SourceRecord, WisdomRecord } from "@/db";
-import { WisdomType } from "./types";
 import { WisdomTypeToAttrs } from "./wisdomTypes";
 import { EraToAttrs } from "./eras";
 import { AreaToAttrs } from "./areas";
+
+function isValidUrl(urlString: string): boolean {
+  const pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name and extension
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  ); // fragment locator
+  return !!pattern.test(urlString);
+}
 
 export function validateCreateSource(
   source: Omit<SourceRecord, "id">,
@@ -16,6 +28,10 @@ export function validateCreateSource(
 
   if (sourceTitles.includes(source.title.toLowerCase())) {
     throw new Error("Source already exists");
+  }
+
+  if (source.url !== undefined && !isValidUrl(source.url)) {
+    throw new Error("Invalid URL");
   }
 }
 
