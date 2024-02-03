@@ -11,8 +11,8 @@ export default function AreaCheckboxes() {
         <Text className="text-white uppercase pb-1">Areas</Text>
       </div>
       <div className="flex flex-wrap">
-        {chunk(areas, 3).map((chunk) => (
-          <div className="w-40">
+        {chunk(areas, 3).map((chunk, i) => (
+          <div className="w-40" key={`chunk-${i}`}>
             {chunk.map((area) => {
               const { color, name } = AreaToAttrs[area];
               return (
